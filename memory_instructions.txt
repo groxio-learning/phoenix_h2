@@ -1,0 +1,16 @@
+iex(38)> # input |> constructor |> show
+nil
+iex(39)> "Did you try turning it off and on again?"
+"Did you try turning it off and on again?"
+iex(40)> # input |> constructor |> erase |> show
+nil
+iex(41)> "D_d y__ tr_ turni__...."
+"D_d y__ tr_ turni__...."
+iex(42)> # input |> constructor |> erase |> erase |> show
+nil
+iex(43)> "D__ y__ _r_ tu_ni__...."
+"D__ y__ _r_ tu_ni__...."
+iex(44)> # input |> constructor |> erase |> erase |> erase |> show
+nil
+iex(45)> "___ ____ ____ _-__...." 
+"___ ____ ____ _-__...."
