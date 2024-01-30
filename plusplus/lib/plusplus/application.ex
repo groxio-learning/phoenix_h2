@@ -1,15 +1,15 @@
 defmodule Plusplus.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
-  @moduledoc false
+  @moduledoc """
+  Lifecycle module
+  """
 
   use Application
 
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Plusplus.Worker.start_link(arg)
-      # {Plusplus.Worker, arg}
+      # Starts a worker
+      {Plusplus.Server, "42"}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
