@@ -1,18 +1,11 @@
 defmodule Fog do
-  @moduledoc """
-  Documentation for `Fog`.
-  """
+  alias Fog.Server
 
-  @doc """
-  Hello world.
+  def show(name) do
+    Server.show(name)
+  end
 
-  ## Examples
-
-      iex> Fog.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def erase(name) do
+    Server.erase(name)
   end
 end
