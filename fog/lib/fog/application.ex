@@ -8,16 +8,18 @@ defmodule Fog.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Fog.Server, {"do or do not, there is no try", 2, :yoda}},
-      {Fog.Server, {"So much space for activities", 3, :brennan}},
-      {Fog.Server, {"They’re taking the Hobbits to Isengard", 2, :legolas}},
-      {Fog.Server, {"I trust him as far as I can throw him", 4, :unknown}},
-      {Fog.Server, {"I'll be back", 2, :terminator}}
+    # useless children
+#      {Fog.Server, %{text: "do or do not, there is no try", steps: 2, name: :yoda}},
+#      {Fog.Server, %{text: "So much space for activities", steps: 3, name: :brennan}},
+#      {Fog.Server, %{text: "They’re taking the Hobbits to Isengard", steps: 2, name: :legolas}},
+#      {Fog.Server, %{text: "I trust him as far as I can throw him", steps: 4, name: :unknown}},
+#      {Fog.Server, %{text: "I'll be back", steps: 2, name: :terminator}}
+      {DynamicSupervisor, name: :dsup, strategy: :one_for_one}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Fog.Supervisor]
+    opts = [strategy: :rest_for_one, name: Fog.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
