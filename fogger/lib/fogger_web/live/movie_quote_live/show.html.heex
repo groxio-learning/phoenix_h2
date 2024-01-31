@@ -1,0 +1,28 @@
+<.header>
+  Movie quote <%= @movie_quote.id %>
+  <:subtitle>This is a movie_quote record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/movie_quotes/#{@movie_quote}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit movie_quote</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Text"><%= @movie_quote.text %></:item>
+  <:item title="Steps"><%= @movie_quote.steps %></:item>
+  <:item title="Name"><%= @movie_quote.name %></:item>
+</.list>
+
+<.back navigate={~p"/movie_quotes"}>Back to movie_quotes</.back>
+
+<.modal :if={@live_action == :edit} id="movie_quote-modal" show on_cancel={JS.patch(~p"/movie_quotes/#{@movie_quote}")}>
+  <.live_component
+    module={FoggerWeb.MovieQuoteLive.FormComponent}
+    id={@movie_quote.id}
+    title={@page_title}
+    action={@live_action}
+    movie_quote={@movie_quote}
+    patch={~p"/movie_quotes/#{@movie_quote}"}
+  />
+</.modal>
