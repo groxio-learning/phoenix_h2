@@ -1,0 +1,43 @@
+<.header>
+  Listing Movie quotes
+  <:actions>
+    <.link patch={~p"/movie_quotes/new"}>
+      <.button>New Movie quote</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="movie_quotes"
+  rows={@streams.movie_quotes}
+  row_click={fn {_id, movie_quote} -> JS.navigate(~p"/movie_quotes/#{movie_quote}") end}
+>
+  <:col :let={{_id, movie_quote}} label="Text"><%= movie_quote.text %></:col>
+  <:col :let={{_id, movie_quote}} label="Steps"><%= movie_quote.steps %></:col>
+  <:col :let={{_id, movie_quote}} label="Name"><%= movie_quote.name %></:col>
+  <:action :let={{_id, movie_quote}}>
+    <div class="sr-only">
+      <.link navigate={~p"/movie_quotes/#{movie_quote}"}>Show</.link>
+    </div>
+    <.link patch={~p"/movie_quotes/#{movie_quote}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, movie_quote}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: movie_quote.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="movie_quote-modal" show on_cancel={JS.patch(~p"/movie_quotes")}>
+  <.live_component
+    module={FoggerWeb.MovieQuoteLive.FormComponent}
+    id={@movie_quote.id || :new}
+    title={@page_title}
+    action={@live_action}
+    movie_quote={@movie_quote}
+    patch={~p"/movie_quotes"}
+  />
+</.modal>
