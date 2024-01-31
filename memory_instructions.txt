@@ -1,0 +1,114 @@
+iex(38)> # input |> constructor |> show
+nil
+iex(39)> "Did you try turning it off and on again?"
+"Did you try turning it off and on again?"
+iex(40)> # input |> constructor |> erase |> show
+nil
+iex(41)> "D_d y__ tr_ turni__...."
+"D_d y__ tr_ turni__...."
+iex(42)> # input |> constructor |> erase |> erase |> show
+nil
+iex(43)> "D__ y__ _r_ tu_ni__...."
+"D__ y__ _r_ tu_ni__...."
+iex(44)> # input |> constructor |> erase |> erase |> erase |> show
+nil
+iex(45)> "___ ____ ____ _-__...." 
+"___ ____ ____ _-__...."
+
+
+
+===============
+
+```
+iex(47)> text = "Make my day."
+"Make my day."
+iex(48)> steps = 3
+3
+iex(49)> len = String.length text
+12
+iex(50)> text = "Make my day" 
+"Make my day"
+iex(51)> len = String.length text
+11
+iex(52)> chunk_size = 
+...(52)>   ceil(length / steps)
+error: undefined variable "length"
+  iex:53
+
+** (CompileError) cannot compile code (errors have been logged)
+
+iex(52)> chunk_size =
+...(52)> ceil(len / steps)   
+4
+iex(53)> 1..len |> Enum.chunk_every(chunk_size)
+[[1, 2, 3, 4], [5, 6, 7, 8], ~c"\t\n\v"]
+iex(54)> 1..len |> Enum.shuffle() |> Enum.chunk_every(chunk_size)
+[[1, 2, 4, 7], [3, 5, 6, 10], ~c"\v\t\b"]
+iex(55)> 1..len |> Enum.shuffle() |> Enum.chunk_every(chunk_size)
+[[6, 11, 9, 2], [5, 8, 3, 4], [7, 1, 10]]
+iex(56)> plan = 1..len |> Enum.shuffle() |> Enum.chunk_every(chunk_size)
+[[5, 10, 11, 2], [1, 8, 7, 3], [6, 9, 4]]
+iex(57)> acc = %{plan: plan, text: text}
+%{text: "Make my day", plan: [[5, 10, 11, 2], [1, 8, 7, 3], [6, 9, 4]]}
+iex(58)> text |> String.split
+["Make", "my", "day"]
+iex(59)> text |> String.split("\n")
+["Make my day"]
+iex(60)> text |> String.graphemes  
+["M", "a", "k", "e", " ", "m", "y", " ", "d", "a", "y"]
+iex(61)> text |> String.graphemes |> Enum.with_index
+[
+  {"M", 0},
+  {"a", 1},
+  {"k", 2},
+  {"e", 3},
+  {" ", 4},
+  {"m", 5},
+  {"y", 6},
+  {" ", 7},
+  {"d", 8},
+  {"a", 9},
+  {"y", 10}
+]
+iex(62)> text |> String.graphemes |> Enum.with_index(1)
+[
+  {"M", 1},
+  {"a", 2},
+  {"k", 3},
+  {"e", 4},
+  {" ", 5},
+  {"m", 6},
+  {"y", 7},
+  {" ", 8},
+  {"d", 9},
+  {"a", 10},
+  {"y", 11}
+]
+iex(63)> step = hd plan
+[5, 10, 11, 2]
+iex(64)> tuples = text |> String.graphemes |> Enum.with_index(1)
+[
+  {"M", 1},
+  {"a", 2},
+  {"k", 3},
+  {"e", 4},
+  {" ", 5},
+  {"m", 6},
+  {"y", 7},
+  {" ", 8},
+  {"d", 9},
+  {"a", 10},
+  {"y", 11}
+]
+iex(65)> Enum.map(tuples, fn {ch, i} -> 
+...(65)>   cond do
+...(65)>     i in step -> "_"
+...(65)>     true -> ch
+...(65)>   end
+...(65)> end
+...(65)> )
+["M", "_", "k", "e", "_", "m", "y", " ", "d", "_", "_"]
+iex(66)> Enum.join(v)
+"M_ke_my d__"
+iex(67)> 
+```
