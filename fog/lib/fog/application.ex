@@ -8,7 +8,11 @@ defmodule Fog.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Fog.Server, {"hello again and again", 5}}
+      {Fog.Server, {"do or do not, there is no try", 2, :yoda}},
+      {Fog.Server, {"So much space for activities", 3, :brennan}},
+      {Fog.Server, {"They’re taking the Hobbits to Isengard", 2, :legolas}},
+      {Fog.Server, {"I trust him as far as I can throw him", 4, :unknown}},
+      {Fog.Server, {"I'll be back", 2, :terminator}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
