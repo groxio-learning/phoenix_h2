@@ -4,8 +4,9 @@ defmodule Fog.Server do
   alias Fog.Eraser
 
   # Client
-  def start_link(input) do
-    GenServer.start_link(__MODULE__, input, name: __MODULE__)
+  def start_link({text, steps, name}) do
+    IO.puts("process comin up! #{name}")
+    GenServer.start_link(__MODULE__, {text, steps}, name: name)
   end
 
   def erase(pid \\ :eraser) do
@@ -14,6 +15,13 @@ defmodule Fog.Server do
 
   def show(pid \\ :eraser) do
     GenServer.call(pid, :show)
+  end
+
+  def child_spec({_text, _steps, name} = opts) do
+    %{
+      id: name,
+      start: {Fog.Server, :start_link, [opts]}
+    }
   end
 
   # Server (callbacks)
