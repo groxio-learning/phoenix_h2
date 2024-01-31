@@ -14,7 +14,8 @@ defmodule Fog.Application do
 #      {Fog.Server, %{text: "They’re taking the Hobbits to Isengard", steps: 2, name: :legolas}},
 #      {Fog.Server, %{text: "I trust him as far as I can throw him", steps: 4, name: :unknown}},
 #      {Fog.Server, %{text: "I'll be back", steps: 2, name: :terminator}}
-      {DynamicSupervisor, name: :dsup, strategy: :one_for_one}
+      {DynamicSupervisor, name: :dsup, strategy: :one_for_one},
+      {Registry, keys: :unique, name: :lookup}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

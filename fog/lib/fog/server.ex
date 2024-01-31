@@ -6,15 +6,15 @@ defmodule Fog.Server do
   # Client
   def start_link(%{text: text, steps: steps, name: name}) do
     IO.puts("process comin up! #{name}")
-    GenServer.start_link(__MODULE__, %{text: text, steps: steps}, name: name)
+    GenServer.start_link(__MODULE__, %{text: text, steps: steps}, name: name(name))
   end
 
   def erase(pid \\ :eraser) do
-    GenServer.cast(pid, :erase)
+    GenServer.cast(name(pid), :erase)
   end
 
   def show(pid \\ :eraser) do
-    GenServer.call(pid, :show)
+    GenServer.call(name(pid), :show)
   end
 
   def child_spec(opts) do
@@ -40,5 +40,10 @@ defmodule Fog.Server do
   @impl true
   def handle_cast(:erase, state) do
     {:noreply, Eraser.erase(state)}
+  end
+
+  #via registry
+  defp name(name) do
+    {:via, Registry, {:lookup, name}}
   end
 end
