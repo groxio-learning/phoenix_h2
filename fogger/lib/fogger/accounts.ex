@@ -10,6 +10,10 @@ defmodule Fogger.Accounts do
 
   ## Database getters
 
+  def user_count(query \\ User) do
+    Repo.aggregate(query, :count)
+  end
+
   @doc """
   Gets a user by email.
 
