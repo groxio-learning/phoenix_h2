@@ -8,8 +8,7 @@ defmodule Fog.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Fog.Worker.start_link(arg)
-      # {Fog.Worker, arg}
+      {Fog.Server, {"hello again and again", 5}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
