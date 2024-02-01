@@ -87,10 +87,14 @@ defmodule FoggerWeb.UserAuth do
   @doc """
   Authenticates the user by looking into the session
   and remember me token.
+
+  conn is a map with assigns
   """
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)
+
+    # works like a Map.put() -- conn if in phx, or socket if in LiveView
     assign(conn, :current_user, user)
   end
 
