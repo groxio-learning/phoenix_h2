@@ -7,6 +7,7 @@ defmodule Fogger.Library do
   alias Fogger.Repo
 
   alias Fogger.Library.MovieQuote
+  alias Fogger.Library.MovieQuote.Query
 
   @doc """
   Returns the list of movie_quotes.
@@ -100,5 +101,68 @@ defmodule Fogger.Library do
   """
   def change_movie_quote(%MovieQuote{} = movie_quote, attrs \\ %{}) do
     MovieQuote.changeset(movie_quote, attrs)
+  end
+
+
+  def next_movie_quote(%MovieQuote{} = movie_quote) do
+    #start with a query returning the first quote after passed
+    # new |> acs |> next_by_id
+    # new |> desc <- prev
+
+    next_quote =
+      Query.new() #constructor on top of the pipe
+      |> Query.ascending()
+      |> Query.next_by_id(movie_quote.id)
+      |> Repo.one()
+
+    cond do
+      next_quote -> next_quote
+      true ->
+        Query.new()
+        |> Query.ascending()
+        |> Repo.one()
+    end
+  end
+
+  def previous_movie_quote(%MovieQuote{} = movie_quote) do
+
+    previous_quote =
+      Query.new()
+      |> Query.descending()
+      |> Query.prev_by_id(movie_quote.id)
+      |> Repo.one()
+
+    # choose first pattern that matches, first truthy
+    # could use :otherwise instead
+    # cond do
+    #   previous_quote -> previous_quote
+    #   :otherwise ->
+    #     Query.new()
+    #     |> Query.descending()
+    #     |> Repo.one()
+    # end
+
+    # if previous_quote,
+    #   do: previous_quote,
+    #   else: Query.new()
+    #         |> Query.descending()
+    #         |> Repo.one()
+
+    # case previous_quote do
+    #   nil ->
+    #     Query.new()
+    #     |> Query.descending()
+    #     |> Repo.one()
+    #   _ ->
+    #     previous_quote
+    # end
+
+    case previous_quote do
+      %MovieQuote{} -> previous_quote
+      _ -> Query.new()
+           |> Query.descending()
+           |> Repo.one()
+    end
+
   end
 end
