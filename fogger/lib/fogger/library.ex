@@ -103,6 +103,11 @@ defmodule Fogger.Library do
     MovieQuote.changeset(movie_quote, attrs)
   end
 
+  def first_movie_quote do
+    Query.new()
+    |> Query.ascending()
+    |> Repo.one()
+  end
 
   def next_movie_quote(%MovieQuote{} = movie_quote) do
     #start with a query returning the first quote after passed
