@@ -89,10 +89,11 @@ defmodule FoggerWeb.Router do
       # :edit is added to socket
       live("/users/settings", UserSettingsLive, :edit)
       live("/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email)
+      live("/leader_board", LeaderBoardLive, :board)
 
-      # add all CRUD routes
-      get("/scores/new/:id", ScoreController, :new)
-      resources("/scores", ScoreController)
+      # CRUD route
+      get("scores/new/:id", ScoreController, :new)
+      resources "/scores", ScoreController
     end
   end
 

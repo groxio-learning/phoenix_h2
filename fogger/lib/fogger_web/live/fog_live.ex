@@ -46,9 +46,11 @@ defmodule FoggerWeb.FogLive do
 
   def score_button(assigns) do
     ~H"""
-    <button phx-click="done" :if={@done} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-      High Score!
-    </button>
+    <%= if @done do %>
+      <button phx-click="done" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded">
+        High Score
+      </button>
+    <% end %>
     """
   end
 end

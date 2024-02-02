@@ -3,10 +3,10 @@ defmodule Fogger.LeaderBoard.Score do
   import Ecto.Changeset
 
   schema "scores" do
-    field(:points, :integer)
-    field(:initials, :string)
-
-    belongs_to(:movie_quote, Fogger.Library.MovieQuote)
+    field :points, :integer
+    field :initials, :string
+    # field :movie_quote, :id
+    belongs_to :movie_quote, Fogger.Library.MovieQuote
 
     timestamps(type: :utc_datetime)
   end
@@ -14,7 +14,7 @@ defmodule Fogger.LeaderBoard.Score do
   @doc false
   def changeset(score, attrs) do
     score
-    # whitelist
+    #whitelist
     |> cast(attrs, [:points, :initials, :movie_quote_id])
     |> validate_required([:points, :initials, :movie_quote_id])
   end
