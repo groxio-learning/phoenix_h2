@@ -17,6 +17,8 @@ defmodule FoggerWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  # liveview is like OTP server, except the cast/call is controlled by UI
+  # CRC => Mount (data put in socket like :new), handle_event like cast, call, Render (like :show)
   scope "/", FoggerWeb do
     pipe_through(:browser)
 
@@ -57,6 +59,7 @@ defmodule FoggerWeb.Router do
   scope "/", FoggerWeb do
     pipe_through([:browser, :redirect_if_user_is_authenticated])
 
+    # all logged out users
     live_session :redirect_if_user_is_authenticated,
       on_mount: [{FoggerWeb.UserAuth, :redirect_if_user_is_authenticated}] do
       live("/users/register", UserRegistrationLive, :new)
@@ -71,8 +74,12 @@ defmodule FoggerWeb.Router do
   scope "/", FoggerWeb do
     pipe_through([:browser, :require_authenticated_user])
 
+    # 2 kinds of redirects (live, reg. http)
     live_session :require_authenticated_user,
       on_mount: [{FoggerWeb.UserAuth, :ensure_authenticated}] do
+      live("/count", CountLive, :yeti)
+      live("/erase", EraseLive, :vino)
+      # 3rd arg :atom extra parameter tell us where we came from
       live("/users/settings", UserSettingsLive, :edit)
       live("/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email)
     end
