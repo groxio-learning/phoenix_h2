@@ -1,0 +1,11 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:movie_quote_id]} type="hidden" />
+  <.input field={f[:points]} type="number" label="Points" />
+  <.input field={f[:initials]} type="text" label="Initials" />
+  <:actions>
+    <.button>Save Score</.button>
+  </:actions>
+</.simple_form>

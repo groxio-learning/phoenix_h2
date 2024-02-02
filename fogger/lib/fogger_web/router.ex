@@ -86,8 +86,13 @@ defmodule FoggerWeb.Router do
       live("/fogger/:id", FogLive, :memory)
       live("/choose", PickerLive, :new)
       live("/choose/:id", PickerLive, :show)
-      live("/users/settings", UserSettingsLive, :edit) #:edit is added to socket
+      # :edit is added to socket
+      live("/users/settings", UserSettingsLive, :edit)
       live("/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email)
+
+      # add all CRUD routes
+      get("/scores/new/:id", ScoreController, :new)
+      resources("/scores", ScoreController)
     end
   end
 

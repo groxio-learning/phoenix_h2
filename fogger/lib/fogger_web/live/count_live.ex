@@ -14,14 +14,16 @@ defmodule FoggerWeb.CountLive do
     """
   end
 
-  #constructor
-  @impl true # callbacks and behaviours
+  # constructor
+  # callbacks and behaviours
+  @impl true
   def mount(_params, _session, socket) do
-    counter = Counter.new("7");
+    counter = Counter.new("7")
 
     {:ok, socket |> assign(count: counter)}
   end
 
+  @impl true
   def handle_event("inc", _, socket) do
     new_count =
       socket.assigns.count
@@ -29,5 +31,4 @@ defmodule FoggerWeb.CountLive do
 
     {:noreply, assign(socket, count: new_count)}
   end
-
 end

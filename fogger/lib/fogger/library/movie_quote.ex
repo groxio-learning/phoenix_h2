@@ -3,9 +3,11 @@ defmodule Fogger.Library.MovieQuote do
   import Ecto.Changeset
 
   schema "movie_quotes" do
-    field :name, :string
-    field :text, :string
-    field :steps, :integer
+    field(:name, :string)
+    field(:text, :string)
+    field(:steps, :integer)
+
+    has_many(:scores, Fogger.LeaderBoard.Score)
 
     timestamps(type: :utc_datetime)
   end

@@ -1,0 +1,8 @@
+<.header>
+  Edit Score <%= @score.id %>
+  <:subtitle>Use this form to manage score records in your database.</:subtitle>
+</.header>
+
+<.score_form changeset={@changeset} action={~p"/scores/#{@score}"} />
+
+<.back navigate={~p"/scores"}>Back to scores</.back>
