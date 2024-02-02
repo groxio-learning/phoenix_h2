@@ -1,0 +1,16 @@
+<.header>
+  Score <%= @score.id %>
+  <:subtitle>This is a score record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/scores/#{@score}/edit"}>
+      <.button>Edit score</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Points"><%= @score.points %></:item>
+  <:item title="Initials"><%= @score.initials %></:item>
+</.list>
+
+<.back navigate={~p"/scores"}>Back to scores</.back>

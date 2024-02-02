@@ -1,0 +1,24 @@
+<.header>
+  Listing Scores
+  <:actions>
+    <.link href={~p"/scores/new"}>
+      <.button>New Score</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="scores" rows={@scores} row_click={&JS.navigate(~p"/scores/#{&1}")}>
+  <:col :let={score} label="Points"><%= score.points %></:col>
+  <:col :let={score} label="Initials"><%= score.initials %></:col>
+  <:action :let={score}>
+    <div class="sr-only">
+      <.link navigate={~p"/scores/#{score}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/scores/#{score}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={score}>
+    <.link href={~p"/scores/#{score}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
