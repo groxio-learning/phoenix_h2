@@ -56,9 +56,13 @@ defmodule Fogger.LeaderBoard do
 
   """
   def create_score(attrs \\ %{}) do
-    %Score{}
-    |> Score.changeset(attrs)
-    |> Repo.insert()
+    score =
+      %Score{}
+      |> Score.changeset(attrs)
+      |> Repo.insert()
+    # could be more sophisticated
+    broadcast_score()
+    score
   end
 
   @doc """
@@ -106,5 +110,17 @@ defmodule Fogger.LeaderBoard do
   """
   def change_score(%Score{} = score, attrs \\ %{}) do
     Score.changeset(score, attrs)
+  end
+
+  def topic() do
+    "high score"
+  end
+
+  def message() do
+    "leader board changed"
+  end
+
+  def broadcast_score() do
+    Phoenix.PubSub.broadcast(Fogger.PubSub, topic(), message())
   end
 end

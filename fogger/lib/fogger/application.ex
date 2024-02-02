@@ -11,7 +11,7 @@ defmodule Fogger.Application do
       FoggerWeb.Telemetry,
       Fogger.Repo,
       {DNSCluster, query: Application.get_env(:fogger, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: Fogger.PubSub},
+      {Phoenix.PubSub, [name: Fogger.PubSub]},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Fogger.Finch},
       # Start a worker by calling: Fogger.Worker.start_link(arg)

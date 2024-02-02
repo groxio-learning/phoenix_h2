@@ -25,9 +25,14 @@ defmodule FoggerWeb.EraseLive do
 
   def score_button(assigns) do
     ~H"""
-    <button phx-click="done" show={@done} >
-      High Score!
+    <button phx-click="score" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+      <%= if @done, do: "Done", else: "Not done" %>
     </button>
+    <%= if @done do %>
+      <button phx-click="done">
+        Done
+      </button>
+    <% end %>
     """
   end
 end
