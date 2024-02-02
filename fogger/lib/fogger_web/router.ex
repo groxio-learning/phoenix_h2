@@ -91,6 +91,7 @@ defmodule FoggerWeb.Router do
       live("/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email)
 
       # add all CRUD routes
+      get("/scores/new/:id", ScoreController, :new)
       resources("/scores", ScoreController)
     end
   end

@@ -8,6 +8,7 @@ defmodule FoggerWeb.EraseLive do
     <h1>Goodbye world</h1>
     <p><%= Eraser.show(@movie_quote) %></p>
     <button phx-click="erase">Erase me</button>
+    <.score_button done={@movie_quote.plan == []} />
     """
   end
 
@@ -20,5 +21,13 @@ defmodule FoggerWeb.EraseLive do
 
   def handle_event("erase", _, socket) do
     {:noreply, assign(socket, movie_quote: Eraser.erase(socket.assigns.movie_quote))}
+  end
+
+  def score_button(assigns) do
+    ~H"""
+    <button phx-click="done" show={@done} >
+      High Score!
+    </button>
+    """
   end
 end

@@ -3,14 +3,22 @@ defmodule FoggerWeb.ScoreController do
 
   alias Fogger.LeaderBoard
   alias Fogger.LeaderBoard.Score
+  alias Fogger.Library
 
   def index(conn, _params) do
     scores = LeaderBoard.list_scores()
     render(conn, :index, scores: scores)
   end
 
-  def new(conn, _params) do
-    changeset = LeaderBoard.change_score(%Score{})
+  def new(conn, params) do
+    id =
+      if params["id"] do
+        params["id"]
+      else
+        Library.first_movie_quote().id
+      end
+
+    changeset = LeaderBoard.change_score(%Score{movie_quote_id: id})
     render(conn, :new, changeset: changeset)
   end
 
