@@ -77,10 +77,16 @@ defmodule FoggerWeb.Router do
     # 2 kinds of redirects (live, reg. http)
     live_session :require_authenticated_user,
       on_mount: [{FoggerWeb.UserAuth, :ensure_authenticated}] do
-      live("/count", CountLive, :yeti)
+      # live("/count", CountLive, :yeti)
       live("/erase", EraseLive, :vino)
       # 3rd arg :atom extra parameter tell us where we came from
-      live("/users/settings", UserSettingsLive, :edit)
+      # live("/users/settings", UserSettingsLive, :edit)
+      # _Live is data
+      live("/count", CountLive, :yeti)
+      live("/fogger/:id", FogLive, :memory)
+      live("/choose", PickerLive, :new)
+      live("/choose/:id", PickerLive, :show)
+      live("/users/settings", UserSettingsLive, :edit) #:edit is added to socket
       live("/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email)
     end
   end

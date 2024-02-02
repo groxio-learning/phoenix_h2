@@ -2,7 +2,7 @@ import Config
 
 # Configure your database
 config :fogger, Fogger.Repo,
-  username: "postgres",
+  username: "nataliasarosiek",
   password: "postgres",
   hostname: "localhost",
   database: "fogger_dev",

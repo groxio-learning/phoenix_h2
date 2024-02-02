@@ -90,6 +90,8 @@ defmodule FoggerWeb.UserAuth do
 
   conn is a map with assigns
   """
+  # this is a plug
+  # conn is a map with assigns
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)

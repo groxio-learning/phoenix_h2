@@ -12,6 +12,7 @@ defmodule FoggerWeb.Endpoint do
   ]
 
   # round-trip communication channel
+  # roundtrip between the server and the client
   socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
 
   # Serve at "/" the static files from "priv/static" directory.
@@ -51,5 +52,6 @@ defmodule FoggerWeb.Endpoint do
   plug(Plug.MethodOverride)
   plug(Plug.Head)
   plug(Plug.Session, @session_options)
+  # above is common
   plug(FoggerWeb.Router)
 end
